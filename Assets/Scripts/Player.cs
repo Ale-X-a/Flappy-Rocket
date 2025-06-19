@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public class Player: MonoBehaviour
 {
@@ -33,7 +32,7 @@ public class Player: MonoBehaviour
     {
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
-           Debug.Log("Rotate left");
+            Debug.Log("Rotate left");
             ApplyRotation(rotationThrust);
         }
         else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
@@ -46,6 +45,8 @@ public class Player: MonoBehaviour
     
     void ApplyRotation(float rotationThisFrame)
     {
-        transform.Rotate(Vector3.forward * rotationThrust * Time.deltaTime); //rotate up, spins it
+        rb.freezeRotation = true;//disables physics control of rotation
+        transform.Rotate(Vector3.forward * rotationThisFrame * Time.deltaTime); //rotate up, spins it
+        rb.freezeRotation = false;//re-enables
     }
 }
