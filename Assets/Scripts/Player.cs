@@ -2,17 +2,19 @@ using UnityEngine;
 
 public class Player: MonoBehaviour
 {
-    [SerializeField]  float mainThrust = 100f;
-    [SerializeField]  float rotationThrust = 1f;
-    
+    [SerializeField] float mainThrust = 100f;
+    [SerializeField] float rotationThrust = 1f;
+    [SerializeField] AudioClip mainEngineSound;
+
     Rigidbody rb;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    AudioSource audioSource;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        audioSource= FindFirstObjectByType<AudioSource>(); //only if there is only one audiosources
     }
 
-    // Update is called once per frame// movement keys !! each frame
     void Update()
     {
         ProcessThrust();
@@ -21,32 +23,55 @@ public class Player: MonoBehaviour
 
     void ProcessThrust()
     {
+        float currentThrust = mainThrust;
+        
+        if (Input.GetKey(KeyCode.X))
+        {
+            currentThrust *= 0.10f;
+        }
+        
         if (Input.GetKey(KeyCode.Space))
         {
-           // Debug.Log("Engine enabled");
-            rb.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime);
+            rb.AddRelativeForce(Vector3.up * currentThrust * Time.deltaTime);
+            if (!audioSource.isPlaying)
+            {
+                audioSource.PlayOneShot(mainEngineSound);
+            }
+        }
+        else
+        { 
+            {
+                audioSource.Stop();
+            }
+        }
+
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            rb.AddRelativeForce(Vector3.forward * currentThrust * Time.deltaTime);
         }
     }
+    
 
     void ProcessRotation()
     {
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
-            Debug.Log("Rotate left");
-            ApplyRotation(rotationThrust);
+            ApplyRotation(-rotationThrust);
         }
         else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
-        
         {
-            Debug.Log("Rotate right");
-            ApplyRotation(-rotationThrust);
-            }
+            ApplyRotation(rotationThrust);
+        }
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            rb.AddRelativeForce(-Vector3.forward * mainThrust * Time.deltaTime);
+        }
+    }
+
+    void ApplyRotation(float rotationThisFrame)
+    { 
+        transform.Rotate(Vector3.up * rotationThisFrame * Time.deltaTime);
+    
     }
     
-    void ApplyRotation(float rotationThisFrame)
-    {
-        rb.freezeRotation = true;//disables physics control of rotation
-        transform.Rotate(Vector3.forward * rotationThisFrame * Time.deltaTime); //rotate up, spins it
-        rb.freezeRotation = false;//re-enables
-    }
 }
