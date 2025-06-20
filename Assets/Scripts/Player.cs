@@ -21,6 +21,7 @@ public class Player: MonoBehaviour
         rb = GetComponent<Rigidbody>();
         audioSource = gameObject.AddComponent<AudioSource>();
         // audioSource= FindFirstObjectByType<AudioSource>(); //only if there is only one audiosources
+        
         backgroundAudioSource = gameObject.AddComponent<AudioSource>();
         
         backgroundAudioSource.clip = backgroundMusic;

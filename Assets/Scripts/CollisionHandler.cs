@@ -47,12 +47,11 @@ public class CollisionHandler: MonoBehaviour
         if (health != null)
         {
             health.TakeDamage(collisionDamage);
-            
             audioSource.PlayOneShot(crashSound);
-            GetComponent<Player>().enabled = false;
-            
+
             if (health.GetHealth() <= 0)
             {
+                GetComponent<Player>().enabled = false;
                 Invoke(nameof(ReloadLevel), levelLoadDelay);
             }
         }
