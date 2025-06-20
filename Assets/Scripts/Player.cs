@@ -5,14 +5,25 @@ public class Player: MonoBehaviour
     [SerializeField] float mainThrust = 100f;
     [SerializeField] float rotationThrust = 1f;
     [SerializeField] AudioClip mainEngineSound;
+    [SerializeField] AudioClip backgroundMusic;
+    [SerializeField] float backgroundVolume = 1f;
 
     Rigidbody rb;
     AudioSource audioSource;
+    AudioSource backgroundAudioSource;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        audioSource= FindFirstObjectByType<AudioSource>(); //only if there is only one audiosources
+        audioSource = gameObject.AddComponent<AudioSource>();
+        // audioSource= FindFirstObjectByType<AudioSource>(); //only if there is only one audiosources
+        backgroundAudioSource = gameObject.AddComponent<AudioSource>();
+        
+        backgroundAudioSource.clip = backgroundMusic;
+        backgroundAudioSource.volume = backgroundVolume;
+        backgroundAudioSource.loop = true;
+        backgroundAudioSource.Play();
+
     }
 
     void Update()
@@ -50,7 +61,6 @@ public class Player: MonoBehaviour
             rb.AddRelativeForce(Vector3.forward * currentThrust * Time.deltaTime);
         }
     }
-    
 
     void ProcessRotation()
     {

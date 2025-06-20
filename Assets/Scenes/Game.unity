@@ -976,12 +976,12 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: f3e7831327dea4e41914184fd554ab07, type: 3}
-  m_Resource: {fileID: 8300000, guid: f3e7831327dea4e41914184fd554ab07, type: 3}
-  m_PlayOnAwake: 0
+  m_audioClip: {fileID: 8300000, guid: 855c7945962c844e49c45f5124a93570, type: 3}
+  m_Resource: {fileID: 8300000, guid: 855c7945962c844e49c45f5124a93570, type: 3}
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1115,7 +1115,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainThrust: 5000
   rotationThrust: 100
-  mainEngineSound: {fileID: 8300000, guid: 87da799a1582c8e448323e3449987623, type: 3}
+  mainEngineSound: {fileID: 8300000, guid: f3e7831327dea4e41914184fd554ab07, type: 3}
+  backgroundMusic: {fileID: 8300000, guid: 855c7945962c844e49c45f5124a93570, type: 3}
+  backgroundVolume: 0.3
 --- !u!136 &351142502
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1179,7 +1181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelLoadDelay: 1
-  successSound: {fileID: 0}
+  successSound: {fileID: 8300000, guid: 87da799a1582c8e448323e3449987623, type: 3}
   crashSound: {fileID: 8300000, guid: f139ee9ad539b2a4a8653a56bc98366a, type: 3}
   collisionDamage: 25
   safeLandingSpeed: 50
